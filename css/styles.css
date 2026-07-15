@@ -200,16 +200,24 @@ section{position:relative}
 .mini-card h3{display:flex;align-items:center;gap:10px}
 .mini-card h3 svg{width:26px;height:26px;color:var(--accent-d);stroke-width:1.5}
 
-/* ---- Werkwijze (premium cijfers, geen rondje) ------------------------ */
+/* ---- Werkwijze (premium, gloeiende verbindingslijn) ------------------ */
+.steps-wrap{position:relative}
 .steps{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.step{position:relative;padding:30px 24px 26px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);overflow:hidden;opacity:.5;transition:.6s ease}
-.step.lit{opacity:1;background:rgba(198,161,91,.05);border-color:rgba(198,161,91,.28)}
-.step-n{font-family:var(--f-head);font-weight:700;font-size:3.4rem;line-height:1;color:rgba(198,161,91,.32);letter-spacing:-.03em;margin-bottom:.15em;transition:.4s}
+.step{position:relative;padding:28px 22px 24px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);opacity:.45;transition:.6s ease}
+.step.lit{opacity:1;background:rgba(198,161,91,.06);border-color:rgba(198,161,91,.3)}
+.step-n{font-family:var(--f-head);font-weight:700;font-size:3rem;line-height:1;color:rgba(198,161,91,.3);letter-spacing:-.03em;margin-bottom:.12em;transition:.4s}
 .step.lit .step-n{color:var(--accent)}
-.step h3{margin-bottom:.35em;font-size:1.2rem}
-.step p{font-size:.94rem;color:#a5a199;margin:0}
-.step .step-line{position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--accent);box-shadow:0 0 12px rgba(198,161,91,.6);transition:.7s ease}
-.step.lit .step-line{width:100%}
+.step h3{margin-bottom:.35em;font-size:1.15rem}
+.step p{font-size:.92rem;color:#a5a199;margin:0}
+.step-node{display:none}
+.steps-line{display:none}
+
+/* ---- Prijzen USP's ---------------------------------------------------- */
+.usp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;max-width:680px;margin:0 auto}
+.usp{display:flex;align-items:center;gap:10px;font-size:.95rem;color:var(--ink);font-weight:500}
+.usp svg{width:22px;height:22px;color:var(--accent-d);flex:none}
+.sec-dark .usp{color:#e8e4da}
+.sec-dark .usp svg{color:var(--accent)}
 
 /* ---- Projecten (categorieën, geen fake reviews) ---------------------- */
 .project-card{position:relative;border-radius:var(--radius);overflow:hidden;height:100%;min-height:280px;box-shadow:var(--shadow)}
@@ -308,7 +316,14 @@ section{position:relative}
   .track>*{flex:0 0 300px}
   .split{grid-template-columns:1fr 1fr}
   .split.rev .photo{order:2}
-  .steps{grid-template-columns:repeat(4,1fr)}
+  .steps-wrap{padding-top:46px}
+  .steps{grid-template-columns:repeat(4,1fr);gap:20px}
+  .step{text-align:left}
+  .steps-line{display:block;position:absolute;top:20px;left:12.5%;width:75%;height:2px;background:rgba(198,161,91,.18);z-index:1;border-radius:2px}
+  .steps-line-fill{position:absolute;top:0;left:0;width:100%;height:100%;background:var(--accent);box-shadow:0 0 16px rgba(198,161,91,.85);border-radius:2px;transform:scaleX(0);transform-origin:left center;transition:transform .9s cubic-bezier(.4,0,.2,1)}
+  .step-node{display:block;position:absolute;top:-32px;left:50%;transform:translateX(-50%);width:14px;height:14px;border-radius:50%;background:var(--dark-2);border:2px solid rgba(198,161,91,.4);z-index:2;transition:.4s}
+  .step.lit .step-node{background:var(--accent);border-color:var(--accent);box-shadow:0 0 14px rgba(198,161,91,.95)}
+  .usp-grid{grid-template-columns:repeat(4,1fr)}
   .projects-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
   .projects-grid .track{display:contents}
   .swipe-hint{display:none}

@@ -37,14 +37,31 @@ var CONFIG = {
     revEls.forEach(function (el) { ro.observe(el); });
   } else { revEls.forEach(function (el) { el.classList.add('in'); }); }
 
-  /* Werkwijze: stappen laten oplichten */
+  /* Werkwijze: stappen na elkaar laten oplichten + gloeilijn vullen */
+  var stepsWrap = document.querySelector('.steps-wrap');
   var steps = document.querySelectorAll('.step');
-  if ('IntersectionObserver' in window && steps.length) {
-    var so = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('lit'); } });
-    }, { threshold: 0.4 });
-    steps.forEach(function (s) { so.observe(s); });
-  } else { steps.forEach(function (s) { s.classList.add('lit'); }); }
+  var lineFill = document.querySelector('.steps-line-fill');
+  var stepsDone = false;
+  function litStep(i) {
+    if (i >= steps.length) return;
+    steps[i].classList.add('lit');
+    if (lineFill && steps.length > 1) lineFill.style.transform = 'scaleX(' + (i / (steps.length - 1)) + ')';
+  }
+  function runSteps() {
+    if (stepsDone) return;
+    stepsDone = true;
+    steps.forEach(function (s, i) { setTimeout(function () { litStep(i); }, i * 480); });
+  }
+  function checkSteps() {
+    if (stepsDone || !stepsWrap) return;
+    var r = stepsWrap.getBoundingClientRect();
+    if (r.top < window.innerHeight * 0.82 && r.bottom > 0) runSteps();
+  }
+  if (stepsWrap) {
+    window.addEventListener('scroll', checkSteps, { passive: true });
+    window.addEventListener('resize', checkSteps);
+    checkSteps();
+  }
 
   /* Swipe-track pijlen */
   document.querySelectorAll('[data-track]').forEach(function (block) {
